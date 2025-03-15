@@ -1,0 +1,49 @@
+Emirhan Böyüköner 221101076
+
+Compilation and Execution:
+
+Tum java dosyalarini javac *.java komutuyla derleyebiliriz
+Sonrasinda java MstProgram test1.txt komutuyla ilgili txt dosyasini calistirip ciktilari alirsiniz.
+Ek olarak, tum testleri otomatik calistiran baska bir Main.java sinifi da yaptim. bu sinif, testlerin pass/fail durumunu bildirir.
+
+
+Known Bugs and Limitations:
+
+Incremental update islemleri: MST ilk defa Prim algoritmasiyla (MinHeap kullanilarak) hesaplanip, sonrasinda MST uzerinde incremental update yapilmaya calisiliyor. Ancak, gercek incremental update tam anlamiyla yapilamiyor; bazen MST yapisinda kucuk farkliliklar olabiliyor.
+Performans: Kod kucuk ve orta buyuklukte graphlar icin uygundur; cok buyuk graphlarda DFS tabanli yazdirma ve yol bulma islemleri performans sorunlari olusturabilir.
+Ozel durumlar: Esit agirlikli kenarlar veya cycle durumlarinda MST’nin update islemi beklenenden farkli sonuc verebilir; ilave ince ayar gerekebilir.
+
+
+File Directory:
+Tum kaynak dosyalari ayni klasorde bulunmaktadir.
+Test girdileri ve beklenen cikti dosyalari da ayni klasorde yer almaktadir.
+
+
+Source Files:
+
+MstProgram.java:
+Ana driver sinifidir. Girdi dosyasini (graph verileri ve direktifler) okur, grafi olusturur, Prim algoritmasiyla (MinHeap kullanilarak) ilk MST’yi hesaplar ve direktifleri (print-mst, path, insert-edge, decrease-weight, quit) isleyip ciktilari standard output’a yazdirir.
+
+Main.java:
+Test runner sinifidir. Farkli test girdi dosyalari ile MstProgram’i calistirir, uretildigi ciktiyi beklenen ciktilarla karsilastirir ve pass/fail durumunu bildirir.
+
+MinHeap.java:
+Prim algoritmasi icin kullanilan minimum heap oncelik kuyrugudur. Heap, vertex’leri anahtar degerlerine gore siralar ve en kucuk keyli nodeu extractMin metodu ile verimli sekilde cikarir. Ayrica vertex-to-index cross-reference mekanizmasi ile herhangi bir vertex’in heap icindeki konumuna O(1) zamanda erisim saglar decreaseKey() operasyonu ile anahtar degerlerini gunceller.
+
+Graph.java:
+undirected weighted graphi, adjacency list kullanarak uygular. Vertex ve kenar ekleme, mevcut kenar agirligini dusurme ve kenar agirliklarini dondurme metotlarini icerir. Ayrica, insertOrDecreaseEdge metodu ile kenar ekleme veya agirlik guncelleme islemlerini yapar.
+
+Vertex.java:
+Graphte bir vertex’i temsil eder. Bir string identifier ve bagli kenarlar icin adjacency list icerir.
+
+Edge.java:
+Graphte bir kenari temsil eder. Hedef vertex referansi ve floating-point agirlik degerini icerir.
+
+PrimMST.java:
+Prim algoritmasini kullanarak graph icin Minimum Spanning Tree (MST) hesaplar. MinHeap kullanilarak MST islemleri yapilir; MST, predecessor bilgileri uzerinden MultiwayTree olarak dondurulur.
+
+MultiwayTree.java:
+MST’yi first-child/next-sibling temsili ile multiway tree olarak saklar. Prim algoritmasindan gelen predecessor bilgisine gore agaci olusturur, MST'yi yazdirir (print-mst), iki vertex arasindaki yolu bulur (path) ve incremental update islemlerini (insert-edge, decrease-weight) MST uzerinde minimum degisiklikle yapmaya calisir.
+
+TreeNode.java:
+Multiway tree icinde her dugumu temsil eder. Ilgili vertex, parent, ilk child ve sibling pointer’larini icerir.
