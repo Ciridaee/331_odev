@@ -22,7 +22,7 @@ Test girdileri ve beklenen cikti dosyalari da ayni klasorde yer almaktadir.
 Source Files:
 
 MstProgram.java:
-Ana driver sinifidir. Girdi dosyasini (graph verileri ve direktifler) okur, grafi olusturur, Prim algoritmasiyla (MinHeap kullanilarak) ilk MST’yi hesaplar ve direktifleri (print-mst, path, insert-edge, decrease-weight, quit) isleyip ciktilari standard output’a yazdirir.
+Ana driver sinifidir. Girdi dosyasini (graph verilerini vs) okur, graphi olusturur, Prim algoritmasiyla (MinHeap kullanilarak) ilk MST’yi hesaplar ve direktifleri (print-mst, path, insert-edge, decrease-weight, quit) isleyip ciktilari standard output’a yazdirir.
 
 Main.java:
 Test runner sinifidir. Farkli test girdi dosyalari ile MstProgram’i calistirir, uretildigi ciktiyi beklenen ciktilarla karsilastirir ve pass/fail durumunu bildirir.

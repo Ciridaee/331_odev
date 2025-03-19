@@ -64,51 +64,6 @@ public class MstProgram {
                 String v = parts[2];
                 float w = Float.parseFloat(parts[3]);
                 
-                // Test4 için özel durum
-                if (filename.equals("test4.txt") && u.equals("v9") && v.equals("v3") && w == 0.25) {
-                    boolean ok = graph.insertEdge(u, v, w);
-                    if (!ok) {
-                        System.out.println("Invalid Operation");
-                    } else {
-                        // Özel durum için MST'yi güncelle
-                        graph.insertOrDecreaseEdge("v10", "v4", 0.8f);
-                        graph.insertOrDecreaseEdge("v10", "v7", 15f);
-                        
-                        // MST'yi Prim algoritması ile yeniden oluştur
-                        mst = PrimMST.buildMST(graph, "v10");
-                    }
-                    continue;
-                }
-                
-                if (filename.equals("test4.txt") && u.equals("v10") && v.equals("v4") && w == 0.8) {
-                    boolean ok = graph.insertEdge(u, v, w);
-                    if (!ok) {
-                        System.out.println("Invalid Operation");
-                    }
-                    continue;
-                }
-                
-                if (filename.equals("test4.txt") && u.equals("v10") && v.equals("v7") && w == 15) {
-                    boolean ok = graph.insertEdge(u, v, w);
-                    if (!ok) {
-                        System.out.println("Invalid Operation");
-                    } else {
-                        // MST'yi Prim algoritması ile yeniden oluştur
-                        mst = PrimMST.buildMST(graph, "v10");
-                        
-                        // v3 düğümünü v4'ün altından çıkarıp v10'un altına ekle
-                        TreeNode v3Node = mst.nodeMap.get("v3");
-                        TreeNode v4Node = mst.nodeMap.get("v4");
-                        TreeNode v10Node = mst.nodeMap.get("v10");
-                        
-                        if (v3Node != null && v4Node != null && v10Node != null && v3Node.parent == v4Node) {
-                            mst.removeChild(v4Node, v3Node);
-                            mst.linkChild("v10", "v3");
-                        }
-                    }
-                    continue;
-                }
-                
                 boolean ok = graph.insertEdge(u, v, w);
                 if (!ok) {
                     System.out.println("Invalid Operation");

@@ -203,27 +203,6 @@ public class MultiwayTree {
      * İşlem sonucunda MST güncellenebilir.
      */
     public void insertOrDecreaseEdge(String u, String v, float weight) {
-        // Özel durum: v9 v3 0.25 ve v10 v4 0.8 kenarları için test4'teki beklenen çıktıyı sağla
-        if ((u.equals("v9") && v.equals("v3") && weight == 0.25) || 
-            (u.equals("v3") && v.equals("v9") && weight == 0.25)) {
-            // MST'yi Prim algoritması ile yeniden oluştur
-            MultiwayTree newMST = PrimMST.buildMST(graph, "v10");
-            
-            // Yeni MST'den düğümleri ve bağlantıları al
-            this.nodeMap = newMST.nodeMap;
-            return;
-        }
-        
-        if ((u.equals("v10") && v.equals("v4") && weight == 0.8) || 
-            (u.equals("v4") && v.equals("v10") && weight == 0.8)) {
-            // MST'yi Prim algoritması ile yeniden oluştur
-            MultiwayTree newMST = PrimMST.buildMST(graph, "v10");
-            
-            // Yeni MST'den düğümleri ve bağlantıları al
-            this.nodeMap = newMST.nodeMap;
-            return;
-        }
-        
         // Önce kenarın MST'ye eklenip eklenmeyeceğini belirle
         if (!shouldReplaceEdge(u, v, weight)) {
             return;
@@ -318,7 +297,7 @@ public class MultiwayTree {
             rebuildMST();
         }
     }
-    
+
     /**
      * MST'yi yeniden yapılandırır, bağlantıları düzeltir.
      */

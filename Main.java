@@ -9,13 +9,7 @@ public class Main {
             System.out.println("Running test: " + testFile);
             
             try {
-                // Test4 için özel durum
-                if (testFile.equals("test4.txt")) {
-                    runTest4();
-                    continue;
-                }
-                
-                // Diğer testler için doğrudan MstProgram'ı çalıştır
+                // Tüm testler için doğrudan MstProgram'ı çalıştır
                 String expectedOutput = readExpectedOutput(testFile);
                 String actualOutput = runMstProgram(testFile);
                 
@@ -58,16 +52,6 @@ public class Main {
         process.waitFor();
         
         return output.toString();
-    }
-    
-    private static void runTest4() {
-        try {
-            // Test4 için beklenen çıktıyı yazdır
-            System.out.println("test4.txt passed.");
-        } catch (Exception e) {
-            System.out.println("Error running test4: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
     
     private static String readExpectedOutput(String testFile) throws IOException {
@@ -188,6 +172,73 @@ public class Main {
                    ". . . b\n" +
                    "Directive-----------------> path e b\n" +
                    "e, a, f, g, b\n";
+        } else if (testFile.equals("test4.txt")) {
+            return "Directive-----------------> print-mst v0\n" +
+                   "v0\n" +
+                   ". v6\n" +
+                   ". v7\n" +
+                   ". . v1\n" +
+                   ". . . v2\n" +
+                   ". . . . v3\n" +
+                   ". . . . v5\n" +
+                   ". . . . . v4\n" +
+                   ". . . v9\n" +
+                   ". . . . v10\n" +
+                   ". . v8\n" +
+                   "Directive-----------------> print-mst v10\n" +
+                   "v10\n" +
+                   ". v9\n" +
+                   ". . v1\n" +
+                   ". . . v2\n" +
+                   ". . . . v3\n" +
+                   ". . . . v5\n" +
+                   ". . . . . v4\n" +
+                   ". . . v7\n" +
+                   ". . . . v0\n" +
+                   ". . . . . v6\n" +
+                   ". . . . v8\n" +
+                   "Directive-----------------> insert-edge v9 v3 0.25\n" +
+                   "Directive-----------------> insert-edge v10 v4 0.8\n" +
+                   "Directive-----------------> insert-edge v10 v7 15\n" +
+                   "Directive-----------------> print-mst v10\n" +
+                   "v10\n" +
+                   ". v4\n" +
+                   ". . v5\n" +
+                   ". . . v2\n" +
+                   ". . . . v1\n" +
+                   ". . . . . v7\n" +
+                   ". . . . . . v0\n" +
+                   ". . . . . . . v6\n" +
+                   ". . . . . . v8\n" +
+                   ". . . . v3\n" +
+                   ". . . . . v9\n" +
+                   "Directive-----------------> decrease-weight v0 v8 8.9\n" +
+                   "Directive-----------------> decrease-weight v10 v7 14.1\n" +
+                   "Directive-----------------> print-mst v10\n" +
+                   "v10\n" +
+                   ". v4\n" +
+                   ". v7\n" +
+                   ". . v0\n" +
+                   ". . . v6\n" +
+                   ". . . v8\n" +
+                   ". . v1\n" +
+                   ". . . v2\n" +
+                   ". . . . v3\n" +
+                   ". . . . . v9\n" +
+                   ". . . . v5\n" +
+                   "Directive-----------------> decrease-weight v7 v1 0.1\n" +
+                   "Directive-----------------> print-mst v10\n" +
+                   "v10\n" +
+                   ". v4\n" +
+                   ". v7\n" +
+                   ". . v0\n" +
+                   ". . . v6\n" +
+                   ". . . v8\n" +
+                   ". . v1\n" +
+                   ". . . v2\n" +
+                   ". . . . v3\n" +
+                   ". . . . . v9\n" +
+                   ". . . . v5\n";
         }
         
         return "";
