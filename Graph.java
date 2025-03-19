@@ -82,8 +82,8 @@ class Graph {
     }
 
     /**
-     * Grafta yeni bir kenar ekler veya mevcut kenarın ağırlığını günceller.
-     * Kenar yoksa ekler, varsa ağırlığı verilen değerle günceller.
+     * graphta yeni bir kenar ekler veya mevcut kenarin agirligini gunceller.
+     * Kenar yoksa ekler, varsa agirligi verilen degerle gunceller.
      */
     public void insertOrDecreaseEdge(String u, String v, float w) {
         Vertex vu = vertices.get(u);
@@ -92,12 +92,12 @@ class Graph {
         
         boolean edgeExists = false;
         
-        // Kenarın varlığını kontrol et ve ağırlığını güncelle
+        // Kenarin varligini kontrol et ve agirligini guncelle
         for (Edge e : vu.adjList) {
             if (e.dest == vv) {
                 if (e.weight > w) {
                     e.weight = w;
-                    // Çift yönlü olduğu için diğer tarafı da güncelle
+                    // cift yonlu oldugu icin diger tarafi da guncelle
                     for (Edge e2 : vv.adjList) {
                         if (e2.dest == vu) {
                             e2.weight = w;

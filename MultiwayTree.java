@@ -4,26 +4,24 @@ public class MultiwayTree {
     // Vertex id'lerini TreeNode olarak saklar.
     HashMap<String, TreeNode> nodeMap;
     Graph graph;
-    String originalRoot; // İlk girilen vertex (Prim's için)
+    String originalRoot; // İlk girilen vertex (Prim's icin)
 
     public MultiwayTree(Graph graph) {
         this.graph = graph;
         this.nodeMap = new HashMap<>();
     }
 
-    /**
-     * Prim's algoritmasından elde edilen pred haritasına göre MST'yi oluşturur.
-     */
+    // Prim's algoritmasindan elde edilen pred haritasina gore MST'yi olusturur.
     public void buildFromPredecessors(HashMap<Vertex, Vertex> pred, String rootId) {
         nodeMap.clear();
         originalRoot = rootId;
         
-        // Düğümleri oluştur
+        // nodeleri olustur
         for (Vertex v : graph.getAllVertices()) {
             nodeMap.put(v.id, new TreeNode(v));
         }
         
-        // Parent-child ilişkilerini kur
+        // Parent-child iliskilerini kur
         for (Vertex v : graph.getAllVertices()) {
             Vertex p = pred.get(v);
             if (p != null) {
@@ -32,23 +30,22 @@ public class MultiwayTree {
         }
     }
 
-    /**
-     * pId altına, cId düğümünü alfabetik sıraya göre ekler.
-     */
+    // pId altina, cId nodeunu alfabetik siraya gore ekler.
+     
     public void linkChild(String pId, String cId) {
         TreeNode parent = nodeMap.get(pId);
         TreeNode child = nodeMap.get(cId);
         
         if (parent == null || child == null) return;
         
-        // Eğer child zaten bir parent'a bağlıysa, önce onu ayır
+        // Eger child zaten bir parent'a bagliysa, once onu ayir
         if (child.parent != null) {
             removeChild(child.parent, child);
         }
         
         child.parent = parent;
         
-        // Parent'ın hiç çocuğu yoksa, ilk çocuk olarak ekle
+        // Parent'in hic cocugu yoksa, ilk cocuk olarak ekle
         if (parent.firstChild == null) {
             parent.firstChild = child;
             child.nextSibling = null;
@@ -56,7 +53,7 @@ public class MultiwayTree {
             return;
         }
         
-        // Alfabetik sıraya göre ekle
+        // Alfabetik siraya gore ekle
         TreeNode current = parent.firstChild;
         TreeNode prev = null;
         
@@ -65,7 +62,7 @@ public class MultiwayTree {
             current = current.nextSibling;
         }
         
-        // Başa ekle
+        // Basa ekle
         if (prev == null) {
             child.nextSibling = parent.firstChild;
             child.prevSibling = null;
@@ -83,9 +80,8 @@ public class MultiwayTree {
         }
     }
 
-    /**
-     * parent'tan child'ı çıkarır.
-     */
+    // parent'tan child'i cikarir.
+     
     public void removeChild(TreeNode parent, TreeNode child) {
         if (parent.firstChild == child) {
             parent.firstChild = child.nextSibling;
@@ -106,9 +102,8 @@ public class MultiwayTree {
         child.prevSibling = null;
     }
 
-    /**
-     * İki düğüm arasındaki yolu bulur.
-     */
+    // İki node arasindaki yolu bulur.
+     
     public List<String> findPath(String start, String end) {
         if (start.equals(end)) {
             List<String> path = new ArrayList<>();
@@ -116,7 +111,7 @@ public class MultiwayTree {
             return path;
         }
         
-        // Ağaçtaki tüm kenarları komşuluk listesi olarak hazırla
+        // Agactaki tum kenarlari komsuluk listesi olarak hazirla
         Map<String, List<String>> adjList = new HashMap<>();
         for (String id : nodeMap.keySet()) {
             adjList.put(id, new ArrayList<>());
@@ -155,12 +150,12 @@ public class MultiwayTree {
             }
         }
         
-        // Yolu oluştur
+        // Yolu olustur
         List<String> path = new ArrayList<>();
         String current = end;
         
         if (!parentMap.containsKey(end) && !start.equals(end)) {
-            return path; // Yol bulunamadı
+            return path; // Yol bulunamadi
         }
         
         while (current != null) {
@@ -171,9 +166,8 @@ public class MultiwayTree {
         return path;
     }
 
-    /**
-     * İki düğüm arasındaki yolu yazdırır.
-     */
+    // İki node arasindaki yolu yazdirir.
+     
     public void printPath(String start, String end) {
         if (start.equals(end)) {
             System.out.println(start);
@@ -183,7 +177,7 @@ public class MultiwayTree {
         List<String> path = findPath(start, end);
         
         if (path.isEmpty() || path.size() < 2) {
-            // Yol bulunamadı
+            // Yol bulunamadi
             return;
         }
         
@@ -199,16 +193,16 @@ public class MultiwayTree {
     }
 
     /**
-     * MST'ye yeni bir kenar eklenir veya mevcut kenarın ağırlığı azaltılır.
-     * İşlem sonucunda MST güncellenebilir.
+     * MST'ye yeni bir kenar eklenir veya mevcut kenarin agirligi azaltilir.
+     * İslem sonucunda MST guncellenebilir.
      */
     public void insertOrDecreaseEdge(String u, String v, float weight) {
-        // Önce kenarın MST'ye eklenip eklenmeyeceğini belirle
+        // once kenarin MST'ye eklenip eklenmeyecegini belirle
         if (!shouldReplaceEdge(u, v, weight)) {
             return;
         }
         
-        // MST'deki tüm kenarları komşuluk listesi olarak hazırla
+        // MST'deki tum kenarlari komsuluk listesi olarak hazirla
         Map<String, List<String>> adj = new HashMap<>();
         for (String id : nodeMap.keySet()) {
             adj.put(id, new ArrayList<>());
@@ -247,12 +241,12 @@ public class MultiwayTree {
             }
         }
         
-        // Yol yoksa çık
+        // Yol yoksa cik
         if (!parent.containsKey(v)) {
             return;
         }
         
-        // Yolu oluştur
+        // Yolu olustur
         List<String> path = new ArrayList<>();
         String current = v;
         
@@ -261,7 +255,7 @@ public class MultiwayTree {
             current = parent.get(current);
         }
         
-        // Yol üzerindeki en ağır kenarı bul
+        // Yol uzerindeki en agir kenari bul
         String maxEdgeSource = null;
         String maxEdgeDest = null;
         float maxWeight = -1;
@@ -278,31 +272,30 @@ public class MultiwayTree {
             }
         }
         
-        // Eğer yeni kenar daha hafifse, MST'yi güncelle
+        // Eger yeni kenar daha hafifse, MST'yi guncelle
         if (weight < maxWeight) {
             TreeNode srcNode = nodeMap.get(maxEdgeSource);
             TreeNode destNode = nodeMap.get(maxEdgeDest);
             
-            // En ağır kenarı çıkar
+            // En agir kenari cikar
             if (srcNode.parent == destNode) {
                 removeChild(destNode, srcNode);
             } else if (destNode.parent == srcNode) {
                 removeChild(srcNode, destNode);
             }
             
-            // Yeni kenarı ekle
+            // Yeni kenari ekle
             linkChild(u, v);
             
-            // MST'yi yeniden yapılandır
+            // MST'yi yeniden yapilandir
             rebuildMST();
         }
     }
 
-    /**
-     * MST'yi yeniden yapılandırır, bağlantıları düzeltir.
-     */
+    // MST'yi yeniden yapilandirir, baglantilari duzeltir.
+     
     private void rebuildMST() {
-        // Kök düğümü bul
+        // Kok nodeu bul
         String rootId = null;
         for (TreeNode node : nodeMap.values()) {
             if (node.parent == null) {
@@ -312,22 +305,21 @@ public class MultiwayTree {
         }
         
         if (rootId == null) {
-            // Kök bulunamadıysa, orijinal kökü kullan
+            // Kok bulunamadiysa, orijinal koku kullan
             rootId = originalRoot;
         }
         
-        // MST'yi Prim algoritması ile yeniden oluştur
+        // MST'yi Prim algoritmasi ile yeniden olustur
         MultiwayTree newMST = PrimMST.buildMST(graph, rootId);
         
-        // Yeni MST'den düğümleri ve bağlantıları al
+        // Yeni MST'den nodeleri ve baglantilari al
         this.nodeMap = newMST.nodeMap;
     }
     
-    /**
-     * Verilen kenarın MST'ye eklenip eklenmeyeceğini belirler.
-     */
+    // Verilen kenarin MST'ye eklenip eklenmeyecegini belirler.
+     
     private boolean shouldReplaceEdge(String u, String v, float weight) {
-        // Ağaçtaki tüm kenarları komşuluk listesi olarak hazırla
+        // Agactaki tum kenarlari komsuluk listesi olarak hazirla
         Map<String, List<String>> adj = new HashMap<>();
         for (String id : nodeMap.keySet()) {
             adj.put(id, new ArrayList<>());
@@ -366,7 +358,7 @@ public class MultiwayTree {
             }
         }
         
-        // Eğer yol bulunduysa ve yol üzerindeki max ağırlık yeni kenardan büyükse
+        // Eger yol bulunduysa ve yol uzerindeki max agirlik yeni kenardan buyukse
         if (parent.containsKey(v) && maxEdgeWeight.get(v) > weight) {
             return true;
         }
@@ -374,44 +366,41 @@ public class MultiwayTree {
         return false;
     }
 
-    /**
-     * Grafta yeni bir kenar eklenir veya mevcut kenarın ağırlığı güncellenir.
-     */
+    // graphta yeni bir kenar eklenir veya mevcut kenarin agirligi guncellenir.
+     
     public void updateInsertEdge(String u, String v, float w) {
-        // Önce grafı güncelle
+        // once graphi guncelle
         graph.insertOrDecreaseEdge(u, v, w);
         
-        // Eğer MST'yi etkileyecekse, MST'yi güncelle
+        // Eger MST'yi etkileyecekse, MST'yi guncelle
         insertOrDecreaseEdge(u, v, w);
     }
 
-    /**
-     * Verilen düğümü ağacın kökü yapar.
-     */
+    // Verilen nodeu agacin koku yapar.
+     
     public void evert(String id) {
         TreeNode node = nodeMap.get(id);
         if (node == null || node.parent == null) {
-            return; // Zaten kök veya düğüm yok
+            return; // Zaten kok veya node yok
         }
         
-        // MST'yi Prim algoritması ile yeniden oluştur
+        // MST'yi Prim algoritmasi ile yeniden olustur
         MultiwayTree newMST = PrimMST.buildMST(graph, id);
         
-        // Yeni MST'den düğümleri ve bağlantıları al
+        // Yeni MST'den nodeleri ve baglantilari al
         this.nodeMap = newMST.nodeMap;
     }
 
-    /**
-     * MST'yi verilen kökten başlayarak yazdırır.
-     */
+    // MST'yi verilen kokten baslayarak yazdirir.
+     
     public void printMST(String rootId) {
-        // Önce verilen düğümü kök olarak ayarla
+        // once verilen nodeu kok olarak ayarla
         evert(rootId);
         
-        // Kökü yazdır
+        // Koku yazdir
         System.out.println(rootId);
         
-        // Komşuluk listesi oluştur
+        // Komsuluk listesi olustur
         Map<String, List<String>> adjList = new HashMap<>();
         for (String id : nodeMap.keySet()) {
             adjList.put(id, new ArrayList<>());
@@ -425,20 +414,19 @@ public class MultiwayTree {
             }
         }
         
-        // Komşuları alfabetik sıraya göre sırala
+        // Komsulari alfabetik siraya gore sirala
         for (List<String> neighbors : adjList.values()) {
             Collections.sort(neighbors);
         }
         
-        // DFS ile ağacı yazdır
+        // DFS ile agaci yazdir
         Set<String> visited = new HashSet<>();
         visited.add(rootId);
         printMSTDFS(rootId, adjList, visited, 1);
     }
     
-    /**
-     * DFS ile MST'yi yazdırır.
-     */
+    // DFS ile MST'yi yazdirir.
+     
     private void printMSTDFS(String current, Map<String, List<String>> adjList, Set<String> visited, int depth) {
         List<String> neighbors = adjList.get(current);
         
@@ -451,10 +439,10 @@ public class MultiwayTree {
                     System.out.print(". ");
                 }
                 
-                // Düğümü yazdır
+                // nodeu yazdir
                 System.out.println(neighbor);
                 
-                // Alt düğümleri yazdır
+                // Alt nodeleri yazdir
                 printMSTDFS(neighbor, adjList, visited, depth + 1);
             }
         }

@@ -1,4 +1,4 @@
-Emirhan Böyüköner 221101076
+Emirhan Boyukoner 221101076
 
 Compilation and Execution:
 
@@ -28,7 +28,7 @@ Main.java:
 Test runner sinifidir. Farkli test girdi dosyalari ile MstProgram’i calistirir, uretildigi ciktiyi beklenen ciktilarla karsilastirir ve pass/fail durumunu bildirir.
 
 MinHeap.java:
-Prim algoritmasi icin kullanilan minimum heap oncelik kuyrugudur. Heap, vertex’leri anahtar degerlerine gore siralar ve en kucuk keyli nodeu extractMin metodu ile verimli sekilde cikarir. Ayrica vertex-to-index cross-reference mekanizmasi ile herhangi bir vertex’in heap icindeki konumuna O(1) zamanda erisim saglar decreaseKey() operasyonu ile anahtar degerlerini gunceller.
+Prim algoritmasi icin kullanilan minimum heap oncelik kuyrugudur. Heap, vertex’leri key degerlerine gore siralar ve en kucuk keyli nodeu extractMin metodu ile verimli sekilde cikarir. Ayrica vertex-to-index cross-reference mekanizmasi ile herhangi bir vertex’in heap icindeki konumuna O(1) zamanda erisim saglar decreaseKey() operasyonu ile key degerlerini gunceller.
 
 Graph.java:
 undirected weighted graphi, adjacency list kullanarak uygular. Vertex ve kenar ekleme, mevcut kenar agirligini dusurme ve kenar agirliklarini dondurme metotlarini icerir. Ayrica, insertOrDecreaseEdge metodu ile kenar ekleme veya agirlik guncelleme islemlerini yapar.
@@ -46,4 +46,4 @@ MultiwayTree.java:
 MST’yi first-child/next-sibling temsili ile multiway tree olarak saklar. Prim algoritmasindan gelen predecessor bilgisine gore agaci olusturur, MST'yi yazdirir (print-mst), iki vertex arasindaki yolu bulur (path) ve incremental update islemlerini (insert-edge, decrease-weight) MST uzerinde minimum degisiklikle yapmaya calisir.
 
 TreeNode.java:
-Multiway tree icinde her dugumu temsil eder. Ilgili vertex, parent, ilk child ve sibling pointer’larini icerir.
+Multiway tree icinde her nodeu temsil eder. Ilgili vertex, parent, ilk child ve sibling pointer’larini icerir.

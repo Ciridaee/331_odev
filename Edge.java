@@ -1,4 +1,4 @@
-public class Edge {
+    public class Edge {
     public Vertex dest;
     public float weight;
     

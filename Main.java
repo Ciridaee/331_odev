@@ -9,7 +9,7 @@ public class Main {
             System.out.println("Running test: " + testFile);
             
             try {
-                // Tüm testler için doğrudan MstProgram'ı çalıştır
+                // Tum testler icin dogrudan MstProgram'i calistir
                 String expectedOutput = readExpectedOutput(testFile);
                 String actualOutput = runMstProgram(testFile);
                 
@@ -32,14 +32,14 @@ public class Main {
     }
     
     private static String runMstProgram(String testFile) throws IOException, InterruptedException {
-        // Komut oluştur
+        // Komut olustur
         ProcessBuilder pb = new ProcessBuilder("java", "-cp", ".", "MstProgram", testFile);
-        pb.redirectErrorStream(true); // stderr'i stdout'a yönlendir
+        pb.redirectErrorStream(true); // stderr'i stdout'a yonlendir
         
-        // Process'i başlat
+        // Process'i baslat
         Process process = pb.start();
         
-        // Çıktıyı oku
+        // ciktiyi oku
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder output = new StringBuilder();
         String line;
@@ -55,7 +55,7 @@ public class Main {
     }
     
     private static String readExpectedOutput(String testFile) throws IOException {
-        // Beklenen çıktıları hardcoded olarak döndür
+        // Beklenen ciktilari hardcoded olarak dondur
         if (testFile.equals("test1.txt")) {
             return "Directive-----------------> print-mst a\n" +
                    "a\n" +

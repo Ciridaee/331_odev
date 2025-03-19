@@ -15,32 +15,32 @@ class PrimMST {
         Vertex root = graph.getVertex(rootId);
         if (root == null) return new MultiwayTree(graph);
 
-        // MinHeap kullanarak Prim algoritmasını uygula
+        // MinHeap kullanarak Primi uygula
         MinHeap minHeap = new MinHeap();
         
-        // Tüm düğümlere sonsuz anahtar değeri ver
+        // Tum nodelere sonsuz key degeri ver
         for (Vertex v : allVerts) {
             minHeap.insert(v, Float.POSITIVE_INFINITY);
         }
         
-        // Kök düğümün anahtar değerini 0 olarak ayarla
+        // Kok nodeun key degerini 0 olarak ayarla
         minHeap.decreaseKey(root, 0f);
 
         while (!minHeap.isEmpty()) {
-            // En küçük anahtar değerine sahip düğümü çıkar
+            // En kucuk key degerine sahip nodeu cikar
             MinHeap.HeapNode minNode = minHeap.extractMin();
             Vertex u = minNode.vertex;
             
             inMST.put(u, true);
             
-            // Komşuları alfabetik sıraya göre işle
+            // Komsulari alfabetik siraya gore isle
             List<Edge> sortedEdges = new ArrayList<>(u.adjList);
             Collections.sort(sortedEdges, (e1, e2) -> e1.dest.id.compareTo(e2.dest.id));
             
             for (Edge e : sortedEdges) {
                 Vertex v = e.dest;
                 
-                // Eğer düğüm MST'de değilse ve kenar ağırlığı mevcut anahtar değerinden küçükse
+                // Eger node MST'de degilse ve kenar agirligi mevcut key degerinden kucukse
                 if (!inMST.get(v) && e.weight < minHeap.getKey(v)) {
                     pred.put(v, u);
                     minHeap.decreaseKey(v, e.weight);

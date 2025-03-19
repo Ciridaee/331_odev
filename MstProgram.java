@@ -11,7 +11,6 @@ public class MstProgram {
         String filename = args[0];
         Scanner in = new Scanner(new File(filename));
 
-        // Read graph input: vertices and edges.
         int numVertices = in.nextInt();
         in.nextLine();
         Graph graph = new Graph();
@@ -32,11 +31,9 @@ public class MstProgram {
             graph.addEdge(u, v, w);
         }
 
-        // Build the initial MST once using Prim's algorithm.
         String rootId = vertexOrder.get(0);
         MultiwayTree mst = PrimMST.buildMST(graph, rootId);
 
-        // Process directives incrementally.
         while (in.hasNextLine()) {
             String line = in.nextLine().trim();
             if (line.isEmpty())
@@ -68,7 +65,6 @@ public class MstProgram {
                 if (!ok) {
                     System.out.println("Invalid Operation");
                 } else {
-                    // Update MST incrementally.
                     mst.updateInsertEdge(u, v, w);
                 }
             } else if (cmd.equals("decrease-weight")) {
